@@ -10,15 +10,10 @@
  * strictly forbidden unless prior written permission is obtained from Aadim Innovation.
  * 
  */
-package com.iamsajan.teacherservice.entity;
+package com.iamsajan.teacherservice.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 
@@ -26,17 +21,10 @@ import lombok.NoArgsConstructor;
  * @version V1.0.0
  * @since V1.0.0, May 4, 2022
  */
-
-@Data
-@Entity
-@NoArgsConstructor
-public class Teacher {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Getter
+@Setter
+public class TeacherResponseDto {
   private Long id;
-  @Column(nullable = false)
   private String name;
-  @Column(nullable = false)
   private String profilePicture;
-
 }

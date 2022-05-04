@@ -10,33 +10,23 @@
  * strictly forbidden unless prior written permission is obtained from Aadim Innovation.
  * 
  */
-package com.iamsajan.teacherservice.entity;
+package com.iamsajan.teacherservice.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
+ * <<Description Here>>
  * 
- * @author Sajan K.C.
- * @version V1.0.0
- * @since V1.0.0, May 4, 2022
+ * @author sajan
+ * @version
+ * @since , May 4, 2022
  */
-
 @Data
-@Entity
-@NoArgsConstructor
-public class Teacher {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-  @Column(nullable = false)
-  private String name;
-  @Column(nullable = false)
-  private String profilePicture;
+public class TeacherCreateDto implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
+  private String name;
+  private String profilePicture;
 }

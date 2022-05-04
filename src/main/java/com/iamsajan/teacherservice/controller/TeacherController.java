@@ -12,9 +12,18 @@
  */
 package com.iamsajan.teacherservice.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import com.iamsajan.teacherservice.dto.TeacherCreateDto;
+import com.iamsajan.teacherservice.dto.TeacherResponseDto;
+import com.iamsajan.teacherservice.dto.TeacherResponseListDto;
+import com.iamsajan.teacherservice.service.TeacherService;
 
 /**
  * 
@@ -24,11 +33,22 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/teachers")
 public class TeacherController {
 
-  @GetMapping
-  public void getTeachers() {
-    System.out.println("GET mapping worked");
+  @Autowired
+  private TeacherService teacherService;
+
+  @PostMapping
+  @ResponseStatus(code = HttpStatus.CREATED)
+  public TeacherResponseDto addTeachers(@RequestBody TeacherCreateDto teacher) {
+    return teacherService.addNewTeacher(teacher);
   }
+
+  @GetMapping
+  @ResponseStatus(code = HttpStatus.OK)
+  public TeacherResponseListDto getTeachers() {
+    return teacherService.getTeachers();
+  }
+
 }
