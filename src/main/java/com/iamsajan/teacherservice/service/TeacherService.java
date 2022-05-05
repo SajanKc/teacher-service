@@ -14,6 +14,7 @@ package com.iamsajan.teacherservice.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.iamsajan.teacherservice.dto.TeacherCreateDto;
@@ -92,6 +93,19 @@ public class TeacherService {
     return response;
   }
 
-
+  /**
+   *
+   * @param id
+   * @author Sajan K.C.
+   * @throws Exception
+   * @since V1.0.0, Modified In: @version, By @author
+   */
+  public void deleteTeacherById(Long id) throws Exception {
+    Optional<Teacher> teacher = teacherRepository.findById(id);
+    if (teacher.isPresent())
+      teacherRepository.deleteById(id);
+    else
+      throw new Exception("teacher with id " + id + " not found");
+  }
 
 }
