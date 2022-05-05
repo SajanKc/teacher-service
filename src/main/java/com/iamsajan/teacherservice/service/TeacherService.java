@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.iamsajan.teacherservice.dto.TeacherCreateDto;
 import com.iamsajan.teacherservice.dto.TeacherResponseDto;
 import com.iamsajan.teacherservice.dto.TeacherResponseListDto;
+import com.iamsajan.teacherservice.dto.TeacherUpdateDto;
 import com.iamsajan.teacherservice.entity.Teacher;
 import com.iamsajan.teacherservice.repository.TeacherRepository;
 
@@ -106,6 +107,27 @@ public class TeacherService {
       teacherRepository.deleteById(id);
     else
       throw new Exception("teacher with id " + id + " not found");
+  }
+
+  /**
+   *
+   * @param id
+   * @param teacherUpdateDto
+   * @return
+   * @author Sajan K.C.
+   * @since V1.0.0, Modified In: @version, By @author
+   */
+  public TeacherResponseDto updateTeacher(Long id, TeacherUpdateDto teacherUpdateDto) {
+    Optional<Teacher> optionalTeacher = teacherRepository.findById(id);
+    if (optionalTeacher.isPresent()) {
+      Teacher teacher = optionalTeacher.get();
+      teacher.setName(teacherUpdateDto.getName());
+      teacher.setProfilePicture(teacherUpdateDto.getProfilePicture());
+
+      Teacher savedTeacher = teacherRepository.save(teacher);
+      return getTeacherResponseDto(savedTeacher);
+    }
+    return null;
   }
 
 }

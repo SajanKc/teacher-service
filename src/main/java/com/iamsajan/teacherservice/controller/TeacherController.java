@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.iamsajan.teacherservice.dto.TeacherCreateDto;
 import com.iamsajan.teacherservice.dto.TeacherResponseDto;
 import com.iamsajan.teacherservice.dto.TeacherResponseListDto;
+import com.iamsajan.teacherservice.dto.TeacherUpdateDto;
 import com.iamsajan.teacherservice.service.TeacherService;
 
 /**
@@ -51,6 +53,13 @@ public class TeacherController {
   @ResponseStatus(code = HttpStatus.OK)
   public TeacherResponseListDto getTeachers() {
     return teacherService.getTeachers();
+  }
+
+  @PutMapping("/{id}")
+  @ResponseStatus(code = HttpStatus.OK)
+  public TeacherResponseDto updateTeachers(@PathVariable Long id,
+      @RequestBody TeacherUpdateDto teacherUpdateDto) {
+    return teacherService.updateTeacher(id, teacherUpdateDto);
   }
 
   @DeleteMapping("/{id}")
