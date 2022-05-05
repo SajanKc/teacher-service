@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.iamsajan.teacherservice.dto.TeacherCreateDto;
 import com.iamsajan.teacherservice.dto.TeacherResponseDto;
 import com.iamsajan.teacherservice.dto.TeacherResponseListDto;
@@ -128,6 +129,17 @@ public class TeacherService {
       return getTeacherResponseDto(savedTeacher);
     }
     return null;
+  }
+
+  /**
+   *
+   * @param teacherIds
+   * @author Sajan K.C.
+   * @since V1.0.0, Modified In: @version, By @author
+   */
+  @Transactional
+  public void deleteTeachers(List<Long> teacherIds) {
+    teacherRepository.deleteByIdIn(teacherIds);
   }
 
 }

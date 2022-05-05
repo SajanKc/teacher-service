@@ -12,6 +12,7 @@
  */
 package com.iamsajan.teacherservice.repository;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.iamsajan.teacherservice.entity.Teacher;
@@ -23,5 +24,13 @@ import com.iamsajan.teacherservice.entity.Teacher;
  */
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
+
+  /**
+   *
+   * @param teacherIds
+   * @author Sajan K.C.
+   * @since V1.0.0, Modified In: @version, By @author
+   */
+  void deleteByIdIn(List<Long> teacherIds);
 
 }

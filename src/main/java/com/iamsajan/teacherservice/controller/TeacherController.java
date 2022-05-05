@@ -12,6 +12,7 @@
  */
 package com.iamsajan.teacherservice.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -66,6 +67,12 @@ public class TeacherController {
   @ResponseStatus(code = HttpStatus.NO_CONTENT)
   public void deleteTeachersById(@PathVariable Long id) throws Exception {
     teacherService.deleteTeacherById(id);
+  }
+
+  @DeleteMapping
+  @ResponseStatus(code = HttpStatus.NO_CONTENT)
+  public void deleteTeachers(@RequestBody List<Long> teacherIds) {
+    teacherService.deleteTeachers(teacherIds);
   }
 
 }
