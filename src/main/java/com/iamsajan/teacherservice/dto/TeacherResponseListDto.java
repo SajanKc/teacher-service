@@ -27,5 +27,5 @@ import lombok.Setter;
 @Setter
 public class TeacherResponseListDto {
   private List<TeacherResponseDto> teachers;
-  private long total;
+  private Long total;
 }

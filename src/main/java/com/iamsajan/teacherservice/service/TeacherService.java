@@ -90,7 +90,7 @@ public class TeacherService {
 
     TeacherResponseListDto response = new TeacherResponseListDto();
     response.setTeachers(teacherResponseList);
-    response.setTotal(teacherResponseList.size());
+    response.setTotal((long) teacherResponseList.size());
 
     return response;
   }

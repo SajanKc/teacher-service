@@ -15,6 +15,7 @@ package com.iamsajan.teacherservice.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,12 +23,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import com.iamsajan.teacherservice.dto.TeacherCreateDto;
 import com.iamsajan.teacherservice.dto.TeacherResponseDto;
 import com.iamsajan.teacherservice.dto.TeacherResponseListDto;
 import com.iamsajan.teacherservice.dto.TeacherUpdateDto;
+import com.iamsajan.teacherservice.helper.FileUploadHelper;
 import com.iamsajan.teacherservice.service.TeacherService;
 
 /**
@@ -43,6 +47,9 @@ public class TeacherController {
 
   @Autowired
   private TeacherService teacherService;
+
+  @Autowired
+  private FileUploadHelper fileUploadHelper;
 
   @PostMapping
   @ResponseStatus(code = HttpStatus.CREATED)
@@ -73,6 +80,27 @@ public class TeacherController {
   @ResponseStatus(code = HttpStatus.NO_CONTENT)
   public void deleteTeachers(@RequestBody List<Long> teacherIds) {
     teacherService.deleteTeachers(teacherIds);
+  }
+
+  @PostMapping("/upload")
+  public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+    try {
+      if (file.isEmpty()) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body("Request must contain file");
+      }
+      if (!file.getContentType().equals("image/jpg") && !file.getContentType().equals("image/jpeg")
+          && !file.getContentType().equals("image/png")) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body("Only jpeg, jpg, png allowed");
+      }
+      // file upload
+      return ResponseEntity.ok(fileUploadHelper.uploadFile(file));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .body("Could not store file " + file + ". Please try again!");
   }
 
 }
